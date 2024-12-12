@@ -5,13 +5,14 @@ This document provides step-by-step instructions to set up and test the WebSocke
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
-2. [Setting Up the Server](#setting-up-the-server)
-3. [Running Celery Worker](#running-celery-worker)
-4. [Testing WebSocket Integration](#testing-websocket-integration)
-5. [Testing Celery Task](#testing-celery-task)
-6. [Check Celery Task Status](#check-celery-task-status)
-7. [API to Update Notification Status](#api-to-update-notification-status)
-6. [Troubleshooting](#troubleshooting)
+2. [Setting Up the Virtual Environment](#setting-up-the-virtual-environment)
+3. [Setting Up the Server](#setting-up-the-server)
+4. [Running Celery Worker](#running-celery-worker)
+5. [Testing WebSocket Integration](#testing-websocket-integration)
+6. [Testing Celery Task](#testing-celery-task)
+7. [Check Celery Task Status](#check-celery-task-status)
+8. [API to Update Notification Status](#api-to-update-notification-status)
+9. [Troubleshooting](#troubleshooting)
 
 ## 1. Prerequisites
 
@@ -47,7 +48,39 @@ To start Redis:
 redis-server
 ```
 
-## 2. Setting Up the Server
+## 2. Setting Up the Virtual Environment
+
+It is recommended to set up a virtual environment to manage the project dependencies. Follow the steps below:
+
+### Create a Virtual Environment
+Navigate to your project directory and create a virtual environment using the following command:
+
+```bash
+python3 -m venv venv
+```
+
+### Activate the Virtual Environment
+- **On macOS/Linux**:
+  ```bash
+  source venv/bin/activate
+  ```
+
+- **On Windows**:
+  ```bash
+  .\venv\Scripts\activate
+  ```
+
+### Install Project Dependencies
+Once the virtual environment is activated, install the necessary dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 3. Setting Up the Server
+
+### Setting Up .env file
+Follow the `env-example` file to set up the `.env` file in your root directory. Make sure to include necessary environment variables like `EMAIL_HOST_USER`.
 
 ### Run the Django Server
 Once Redis is installed and running, start the Django development server by running:
@@ -58,7 +91,7 @@ python manage.py runserver
 
 This will start the server at `http://127.0.0.1:8000/`.
 
-## 3. Running Celery Worker
+## 4. Running Celery Worker
 
 To handle background tasks, you need to start a Celery worker. Open a new terminal and run:
 
@@ -69,7 +102,7 @@ celery -A real_time_notifications worker --loglevel=info
 ### Monitoring Celery Tasks
 You can monitor the Celery task execution through the terminal logs. The `--loglevel=info` flag will display information about task execution.
 
-## 4. Testing WebSocket Integration
+## 5. Testing WebSocket Integration
 
 ### WebSocket Endpoint
 
@@ -87,7 +120,7 @@ Send the following event to create and send a notification:
 
 Once the event is sent, it will trigger the creation and sending of the notification.
 
-## 5. Testing Celery Task
+## 6. Testing Celery Task
 
 ### API to Send Welcome Emails using Celery
 
@@ -117,7 +150,7 @@ The response will return a `task_id` to track the status of the Celery task:
 }
 ```
 
-## 6. Check Celery Task Status
+## 7. Check Celery Task Status
 
 To check the status of a specific Celery task, make a `GET` request to:
 ```
@@ -138,7 +171,7 @@ GET http://127.0.0.1:8000/task-status/8185d90d-4790-45d5-b804-bb9531c2fa95
 }
 ```
 
-## 7. API to Update Notification Status
+## 8. API to Update Notification Status
 
 #### Get Notification Status
 To check the status of a notification, make a `GET` request to:
@@ -160,7 +193,7 @@ POST http://127.0.0.1:8000/notification-status/
 }
 ```
 
-## 8. Troubleshooting
+## 9. Troubleshooting
 
 ### Common Issues
 
