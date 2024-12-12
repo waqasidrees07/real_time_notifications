@@ -1,6 +1,16 @@
-venv
-.idea
-db.sqlite3
+# Ignore Python bytecode files
 __pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment folder
+venv/
+
+# Ignore database files
+db.sqlite3
+
+# Ignore static files
+static/
+
+# Ignore .env files
 .env
-static
