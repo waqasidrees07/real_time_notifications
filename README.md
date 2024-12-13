@@ -25,10 +25,6 @@ Before you begin, make sure you have the following installed:
 ### Install Python Dependencies
 Run the following command to install all required dependencies:
 
-```bash
-pip install -r requirements.txt
-```
-
 ### Install Redis
 Redis is required for both Celery and WebSocket functionalities. If Redis is not already installed, follow the instructions below.
 
